@@ -22,7 +22,7 @@ def get_wordnet_pos(treebank_tag):
     else:
         return None
 
-deleteSignal = [',','.',';','&',':','>','\'','`','(',')','+']
+deleteSignal = [',','.',';','&',':','>',"'",'`','(',')','+','!','*','"']
 
 def lemmatize_sentence(sentence):
     res = []
@@ -61,6 +61,8 @@ def getWord(word):
     if word.istitle():
         word = word.lower()
         word = WordNetLemmatizer().lemmatize(word, pos='n')
+    else:
+        word = WordNetLemmatizer().lemmatize(word, pos='n')
     return word
 
 # while 1:
@@ -68,3 +70,5 @@ def getWord(word):
 #     result = lemmatize_sentence(str)
 #     for word in result:
 #         print(word)
+
+#print(WordNetLemmatizer().lemmatize('probable', pos='v'))
