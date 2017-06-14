@@ -1,7 +1,6 @@
 import json
 import tools
 
-
 def getIndex():
     file = open(tools.projectpath + 'invertIndex.json', 'r')
     indexStr = file.read()

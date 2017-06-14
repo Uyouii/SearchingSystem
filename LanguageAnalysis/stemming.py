@@ -22,7 +22,7 @@ def get_wordnet_pos(treebank_tag):
     else:
         return None
 
-deleteSignal = [',','.',';','&',':','>',"'",'`','(',')','+','!','*','"']
+deleteSignal = [',','.',';','&',':','>',"'",'`','(',')','+','!','*','"','?']
 
 def lemmatize_sentence(sentence):
     res = []

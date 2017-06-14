@@ -1,8 +1,6 @@
 import cmath
 import os
-
 import tools
-
 
 def createVSM(index, wordList, directname):
     path = tools.projectpath + directname
@@ -21,7 +19,7 @@ def createVSM(index, wordList, directname):
 
             df = len(index[word])
             #保留三位小数
-            idf = cmath.log(10 , fileNum / df).real
+            idf = cmath.log10(fileNum / df).real
             # idf =  float("%.3f" % cmath.log(10 , fileNum / df).real)
             tf_idf = "%.2f" % float(tf * idf)
 
@@ -30,7 +28,7 @@ def createVSM(index, wordList, directname):
         VSM[fileID] = tf_idf_list
         # print(tf_idf_list)
     tools.writeToFile(VSM, tools.projectpath + 'VSM.json')
-
+    #return VSM
 
 
 
