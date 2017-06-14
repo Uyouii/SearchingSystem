@@ -1,4 +1,3 @@
-from InvertedIndex import establishVSM
 from InvertedIndex import getIndex
 from InvertedIndex import establishIndex
 from LanguageAnalysis import stemming
@@ -35,9 +34,15 @@ while statement is not "EXIT":
     wordset = set(inputWords)
     docList = searchWord.searchWords(index,wordset)
     # print(docList)
-    sortDoc.sortScoreDocList(index,fileNum,wordset,docList)
+    sortedDocList = sortDoc.TopKScore(20,index,fileNum,wordset,docList)
+    s2 = sortDoc.sortScoreDocList(index,fileNum,wordset,docList)
+    print(sortedDocList)
+    print(s2)
 
 
+
+
+    print("Input the query statement:")
     statement = input()
 
 

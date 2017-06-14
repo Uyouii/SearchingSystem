@@ -22,9 +22,7 @@ def get_wfidf(index, fileNum, docID, word):
 def get_wfidf_Score(index,fileNum,docID,wordList):
     score = 0
     docID = str(docID)
-
     for word in wordList:
-
         if word not in index or docID not in index[word]:
             continue
         tf = len(index[word][docID])

@@ -13,7 +13,6 @@ def searchOneWord(index,word):
 
 #将所有word的结果取并，即所有包含这些word的文档
 def searchWords(index,words):
-
     docQueue = queue.Queue()
     #print(wordset)
     for word in words:
