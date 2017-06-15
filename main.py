@@ -1,10 +1,10 @@
+import os
+import tools
 from InvertedIndex import getIndex
-from InvertedIndex import establishIndex
 from LanguageAnalysis import stemming
 from Serching import searchWord
+from SpellingCorrect import spell
 from scoreQuery import sortDoc
-import tools
-import os
 
 directname = 'Reuters'
 
@@ -37,8 +37,13 @@ while loop:
         if statement == "EXIT":
             break
         # 对输入的字符进行词干还原
+        print("stemming...")
         inputWords = stemming.lemmatize_sentence(statement)
         print(inputWords)
+        print("spelling correcting...")
+        inputWords = spell.correctSentence(inputWords)
+        print(inputWords)
+
         # 去除input中重复的元素
         wordset = set(inputWords)
 
@@ -62,7 +67,7 @@ while loop:
         elif choice == 4:
             phraseDocList = searchWord.searchPhrase(index,wordset,inputWords)
             if len(phraseDocList) == 0:
-                print("Doesn't find \"",statement, '"')
+                print("Doesn't find \"",inputWords, '"')
             else:
                 for key in phraseDocList.keys():
                     print('docID: ',key, "   num: ",len(phraseDocList[key]))
