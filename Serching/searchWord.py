@@ -126,6 +126,10 @@ def serarchPhraseForBool(index, wordList,flag):
         return operateDocList.listNotcontain(tools.wholeDocList,reslist)
 
 
+
+
+
+
 def wildcard2regex(wildcard):
     regex = '^'
     for i in range(wildcard.__len__()):

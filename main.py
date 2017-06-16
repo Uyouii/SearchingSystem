@@ -32,7 +32,7 @@ while LOOP:
     print("your choice(int):")
     try:
         choice = int(input())
-        if choice == 5:
+        if choice == 6:
             break
     except :
         print()
@@ -67,11 +67,12 @@ while LOOP:
             SORTEDDOCLIST = sortDoc.TopKScore(20, INDEX, FILENUM, WORDSET, DOCLIST)
             for doc in SORTEDDOCLIST:
                 print("doc ID: ", doc[1], " score: ", "%.3f" % doc[0])
-
+        #Bool 查询
         elif choice == 3:
             DOCLIST = BoolSearchDel.BoolSearch(INPUTWORDS, INDEX)
+            print("DocList: ")
             print(DOCLIST)
-
+        #短语查询
         elif choice == 4:
             PHRASEDOCLIST = searchWord.searchPhrase(INDEX, WORDSET, INPUTWORDS)
             if 0 == len(PHRASEDOCLIST):
@@ -80,6 +81,9 @@ while LOOP:
                 for key in PHRASEDOCLIST:
                     print('docID: ', key, "   num: ", len(PHRASEDOCLIST[key]))
                     print('    location: ', PHRASEDOCLIST[key])
+        #模糊查询
+        elif choice == 5:
+            pass
 
     else:
         print("Invalid choice! Please observe these choices carefully!")

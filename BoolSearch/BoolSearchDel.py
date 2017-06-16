@@ -49,7 +49,6 @@ def InfxiToPofix(inputList):
                 #弹出到左括号为止
                 while len(tmp) >0 and sym != '('and precedence[sym] >= precedence[word]:
                     # pop out
-                    print(sym)
                     pofix_res.append(tmp.pop())
                     if(len(tmp) == 0):
                         break
@@ -79,7 +78,7 @@ def InfxiToPofix(inputList):
 def BoolSearch(query, index):
     pofix = InfxiToPofix(query)
     result = []
-    print(pofix)
+    #print(pofix)
     queryArray = []
     notTrue = ['1']
     notFalse = ['0']
@@ -94,10 +93,10 @@ def BoolSearch(query, index):
             if i < limit - 1:
                 if pofix[i+1] == "NOT":
                     i = i + 1
-                    result.append(search.serarchPhraseForBool(index, item, flag=True))
+                    result.append(search.serarchPhraseForBool(index, item, flag=False))
                     #result.append(serachtest(index, item, flag=True))
                 else:
-                    result.append(search.serarchPhraseForBool(index, item, flag=False))
+                    result.append(search.serarchPhraseForBool(index, item, flag=True))
                     #result.append(serachtest(index, item, flag=False))
             else:
                 result.append(search.serarchPhraseForBool(index, item, flag=False))
