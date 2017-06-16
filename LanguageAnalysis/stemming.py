@@ -23,8 +23,9 @@ def get_wordnet_pos(treebank_tag):
         return None
 
 deleteSignal = [',','.',';','&',':','>',"'",'`','(',')','+','!','*','"','?']
+deleteSignalForInput = [',','.',';','&',':','>',"'",'`','+','!','*','"','?']
 
-def lemmatize_sentence(sentence):
+def lemmatize_sentence(sentence,forinput):
     res = []
     result = []
     lemmatizer = WordNetLemmatizer()
@@ -36,10 +37,14 @@ def lemmatize_sentence(sentence):
         #如果是 's什么的，直接排除
         if word[0] is '\'':
             continue
-
+        
         #去除标点符号
-        for c in deleteSignal:
-            word = word.replace(c,'')
+        if not forinput:
+            for c in deleteSignal:
+                word = word.replace(c,'')
+        else:
+            for c in deleteSignalForInput:
+                word = word.replace(c,'')
 
         #排除空的字符串
         if len(word) is 0 or word[0] is '-':

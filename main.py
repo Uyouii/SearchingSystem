@@ -5,75 +5,82 @@ from LanguageAnalysis import stemming
 from Serching import searchWord
 from SpellingCorrect import spell
 from scoreQuery import sortDoc
+from BoolSearch import BoolSearchDel
 
-directname = 'Reuters'
+DIRECTNAME = 'Reuters'
 
-# print("establishing the index...")
-# establishIndex.createIndex(directname)
+# print("establishing the INDEX...")
+# establishIndex.createIndex(DIRECTNAME)
 
 print("getting word list...")
-wordList = getIndex.getWordList()
+WORDLIST = getIndex.getWordList()
 print("getting index...")
-index = getIndex.getIndex()
+INDEX = getIndex.getIndex()
 print("loading the wordnet...")
-stemming.lemmatize_sentence("a")
+stemming.lemmatize_sentence("a", False)
 
-path = tools.projectpath + directname
-files = os.listdir(path)
-fileNum = len(files)
+PATH = tools.projectpath + DIRECTNAME
+FILES = os.listdir(PATH)
+FILENUM = len(FILES)
 
-loop = True
+LOOP = True
 print("=================Searching System=================")
 
-while loop:
+while LOOP:
     print("searching operation: ")
-    print("[1] Overall Search  [2]TOP K Search [3]bool search [4]Phrase Search [5]exit")
+    print("[1] Overall [2]TOP K [3]BOOL [4]Phrase [5]wildcard [6]exit")
     print("your choice(int):")
-    choice = int(input())
+    try:
+        choice = int(input())
+        if choice == 5:
+            break
+    except :
+        print()
+        continue
 
     if choice >= 1 and choice <= 5:
         print("input the query statement:")
-        statement = input()
-        if statement == "EXIT":
+        STATEMENT = input()
+        if STATEMENT == "EXIT":
             break
         # 对输入的字符进行词干还原
         print("stemming...")
-        inputWords = stemming.lemmatize_sentence(statement)
-        print(inputWords)
+        INPUTWORDS = stemming.lemmatize_sentence(STATEMENT, True)
+        print(INPUTWORDS)
         print("spelling correcting...")
-        inputWords = spell.correctSentence(inputWords)
-        print(inputWords)
+        INPUTWORDS = spell.correctSentence(INPUTWORDS)
+        print(INPUTWORDS)
 
         # 去除input中重复的元素
-        wordset = set(inputWords)
+        WORDSET = set(INPUTWORDS)
 
         #查询排序
-        if choice == 1 :
-            docList = searchWord.searchWords(index, wordset)
-            sortedDocList = sortDoc.sortScoreDocList(index,fileNum,wordset,docList)
-            for doc in sortedDocList:
+        if choice == 1:
+            DOCLIST = searchWord.searchWords(INDEX, WORDSET)
+            SORTEDDOCLIST = sortDoc.sortScoreDocList(INDEX, FILENUM, WORDSET, DOCLIST)
+            for doc in SORTEDDOCLIST:
                 print("doc ID: ", doc[1], " score: ", "%.4f" % doc[0])
 
         #TOP K 查询
         elif choice == 2:
-            docList = searchWord.searchWords(index, wordset)
-            sortedDocList = sortDoc.TopKScore(20, index, fileNum, wordset, docList)
-            for doc in sortedDocList:
+            DOCLIST = searchWord.searchWords(INDEX, WORDSET)
+            SORTEDDOCLIST = sortDoc.TopKScore(20, INDEX, FILENUM, WORDSET, DOCLIST)
+            for doc in SORTEDDOCLIST:
                 print("doc ID: ", doc[1], " score: ", "%.3f" % doc[0])
 
         elif choice == 3:
-            pass
+            DOCLIST = BoolSearchDel.BoolSearch(INPUTWORDS, INDEX)
+            print(DOCLIST)
 
         elif choice == 4:
-            phraseDocList = searchWord.searchPhrase(index,wordset,inputWords)
-            if len(phraseDocList) == 0:
-                print("Doesn't find \"",inputWords, '"')
+            PHRASEDOCLIST = searchWord.searchPhrase(INDEX, WORDSET, INPUTWORDS)
+            if 0 == len(PHRASEDOCLIST):
+                print("Doesn't find \"", INPUTWORDS, '"')
             else:
-                for key in phraseDocList.keys():
-                    print('docID: ',key, "   num: ",len(phraseDocList[key]))
-                    print('    location: ',phraseDocList[key])
-        elif choice == 5:
-            break
+                for key in PHRASEDOCLIST:
+                    print('docID: ', key, "   num: ", len(PHRASEDOCLIST[key]))
+                    print('    location: ', PHRASEDOCLIST[key])
+
     else:
         print("Invalid choice! Please observe these choices carefully!")
     print()
@@ -81,4 +88,4 @@ while loop:
 print("ByeBye!")
 
 
-# establishVSM.createVSM(index,wordList,'test')
+# establishVSM.createVSM(INDEX,WORDLIST,'test')

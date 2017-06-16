@@ -48,8 +48,11 @@ def correctSentence(input):
     #words = input.split(' ')
     res = []
     for word in input:
-        res.append(correction(word))
+        if word =='(' or word == ')':
+            res.append(word)
+        else:
+            res.append(correction(word))
         # print(correction(word))
     return res
-# input = "Whta a fucking world"
-# print(correctSentence(input))
+#input = ['(','and','fuck',')']
+#print(correctSentence(input))
