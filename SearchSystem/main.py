@@ -108,13 +108,13 @@ while LOOP:
         #模糊查询
         elif choice == 5:
             list = searchWord.wildcardSearch(STATEMENT, INDEX, WORDLIST)
-            for key in list:
-                # if len(list[key]) == 0:
-                #     print("    ","doesn't find",key,"in articles")
-                # else:
-                if len(list[key]) != 0:
-                    print(key, ":")
-                    print("    DocList: ",list[key])
+            # for key in list:
+            #     # if len(list[key]) == 0:
+            #     #     print("    ","doesn't find",key,"in articles")
+            #     # else:
+            #     if len(list[key]) != 0:
+            #         print(key, ":")
+            #         print("    DocList: ",list[key])
 
     else:
         print("Invalid choice! Please observe these choices carefully!")

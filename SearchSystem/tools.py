@@ -1,7 +1,7 @@
 import json
 import os
 
-projectpath = 'D:/pythonProject/SearchingSystem/SearchingSystem/'
+projectpath = 'D:/pythonProject/SearchingSystem/SearchSystem/'
 reuterspath = 'D:/pythonProject/SearchingSystem/Reuters'
 
 def writeToFile(item,filename):

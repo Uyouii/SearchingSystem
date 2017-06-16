@@ -128,8 +128,8 @@ def serarchPhraseForBool(index, wordList,flag):
 
 
 def wildcardSearch(statement,index,wordList):
-    words = set(statement.split(' '))
-
+    words = statement.split(' ')
+    #print(words)
     forSearchList = []
 
     for word in words:
@@ -137,7 +137,7 @@ def wildcardSearch(statement,index,wordList):
         if len(rset) > 0:
             forSearchList.append(rset)
         else:
-            # print(word,"doesn't find matching words in these articles.")
+            print(word,"doesn't find matching words in these articles.")
             return []
 
     i = 0
@@ -161,6 +161,9 @@ def wildcardSearch(statement,index,wordList):
         docList = searchPhrase(index,set(searchList),searchList)
 
         resultList[statement] = docList
+        if len(docList) > 0:
+            print(statement, ":")
+            print("    DocList: ", docList)
 
         j = 0
         while j < N:
