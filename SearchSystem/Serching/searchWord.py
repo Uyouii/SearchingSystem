@@ -127,6 +127,60 @@ def serarchPhraseForBool(index, wordList,flag):
 
 
 
+def wildcardSearch(statement,index,wordList):
+    words = set(statement.split(' '))
+
+    forSearchList = []
+
+    for word in words:
+        rset = searchBasedOnWildcard(word,wordList)
+        if len(rset) > 0:
+            forSearchList.append(rset)
+        else:
+            # print(word,"doesn't find matching words in these articles.")
+            return []
+
+    i = 0
+    numList = []
+    N = len(forSearchList)
+    while i < N:
+        numList.append(0)
+        i += 1
+
+    resultList = {}
+
+    while 1:
+        searchList = []
+        statement = ""
+        j = 0
+        while j < N:
+            searchList.append(forSearchList[j][numList[j]])
+            statement += searchList[j] + " "
+            j += 1
+
+        docList = searchPhrase(index,set(searchList),searchList)
+
+        resultList[statement] = docList
+
+        j = 0
+        while j < N:
+            if numList[j] < len(forSearchList[j]) - 1:
+                numList[j] += 1
+                m = 0
+                while m < j:
+                    numList[m] = 0
+                    m += 1
+
+                break
+            j += 1
+
+        if j >= N:
+            break
+
+    return resultList
+
+
+
 
 
 
@@ -136,26 +190,24 @@ def wildcard2regex(wildcard):
         if(i == 0):
             if (wildcard[i] == '*'):
                 regex = regex + '[a-z]*'
+            elif (wildcard[i] == '?'):
+                regex = regex + '[a-z]'
             elif (not wildcard[i].isalpha()):
                 return None
             else:
                 regex = regex + wildcard[i]
-        elif(i == wildcard.__len__() - 1):
-            if(wildcard[i] == '*'):
-                regex = regex + '[a-z]*'
-            elif (not wildcard[i].isalpha()):
-                return None
-            else:
-                regex = regex + wildcard[i] + '[a-z]*'
         else:
             if(wildcard[i] == '*'):
                 regex = regex + '[a-z]*'
+            elif (wildcard[i] == '?'):
+                regex = regex + '[a-z]'
             elif (not wildcard[i].isalpha()):
                 return None
             else:
                 regex = regex + wildcard[i]
     regex = regex + '$'
     return regex
+
 '''
 e.g.
 ret = searchBasedOnWildcard('f*bility', ['feasability', 'family', 'hello', 'flexibility'])
@@ -164,14 +216,14 @@ print(ret)
 show: {'feasability', 'flexiblility'}
 '''
 def searchBasedOnWildcard(wildcard, wordList):
-    result = set()
+    result = []
     regex = wildcard2regex(wildcard)
     if(regex == None):
         return result
     pattern = re.compile(regex, flags=re.IGNORECASE)
     for word in wordList:
         if(pattern.match(word)):
-            result.add(word)
+            result.append(word)
             # print(word)
     return result
         

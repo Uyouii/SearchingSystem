@@ -1,7 +1,8 @@
 import json
 import os
 
-projectpath = 'D:/pythonProject/SearchingSystem/'
+projectpath = 'D:/pythonProject/SearchingSystem/SearchingSystem/'
+reuterspath = 'D:/pythonProject/SearchingSystem/Reuters'
 
 def writeToFile(item,filename):
     # 将数据写入到文件中
@@ -17,8 +18,7 @@ def getDocID(filename):
     return int(docId)
 
 def getWholeDocList():
-    path = projectpath + "Reuters"
-    files = os.listdir(path)
+    files = os.listdir(reuterspath)
     fileList = []
     for file in files:
         fileList.append(getDocID(file))

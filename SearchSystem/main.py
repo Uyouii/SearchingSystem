@@ -20,7 +20,7 @@ print("loading the wordnet...")
 stemming.lemmatize_sentence("a", False)
 
 PATH = tools.projectpath + DIRECTNAME
-FILES = os.listdir(PATH)
+FILES = os.listdir(tools.reuterspath)
 FILENUM = len(FILES)
 
 LOOP = True
@@ -43,19 +43,18 @@ while LOOP:
         STATEMENT = input()
         if STATEMENT == "EXIT":
             break
-        # 对输入的字符进行词干还原
-        print("stemming...")
-        INPUTWORDS = stemming.lemmatize_sentence(STATEMENT, True)
-        print(INPUTWORDS)
-        print("spelling correcting...")
-        INPUTWORDS = spell.correctSentence(INPUTWORDS)
-        print(INPUTWORDS)
-
-        # 去除input中重复的元素
-        WORDSET = set(INPUTWORDS)
 
         #查询排序
         if choice == 1:
+            print("stemming...")
+            INPUTWORDS = stemming.lemmatize_sentence(STATEMENT, True)
+            print(INPUTWORDS)
+            print("spelling correcting...")
+            INPUTWORDS = spell.correctSentence(INPUTWORDS)
+            print(INPUTWORDS)
+
+            WORDSET = set(INPUTWORDS)
+
             DOCLIST = searchWord.searchWords(INDEX, WORDSET)
             SORTEDDOCLIST = sortDoc.sortScoreDocList(INDEX, FILENUM, WORDSET, DOCLIST)
             for doc in SORTEDDOCLIST:
@@ -63,17 +62,42 @@ while LOOP:
 
         #TOP K 查询
         elif choice == 2:
+            print("stemming...")
+            INPUTWORDS = stemming.lemmatize_sentence(STATEMENT, True)
+            print(INPUTWORDS)
+            print("spelling correcting...")
+            INPUTWORDS = spell.correctSentence(INPUTWORDS)
+            print(INPUTWORDS)
+
+            WORDSET = set(INPUTWORDS)
+
             DOCLIST = searchWord.searchWords(INDEX, WORDSET)
             SORTEDDOCLIST = sortDoc.TopKScore(20, INDEX, FILENUM, WORDSET, DOCLIST)
             for doc in SORTEDDOCLIST:
                 print("doc ID: ", doc[1], " score: ", "%.3f" % doc[0])
         #Bool 查询
         elif choice == 3:
+            print("stemming...")
+            INPUTWORDS = stemming.lemmatize_sentence(STATEMENT, True)
+            print(INPUTWORDS)
+            print("spelling correcting...")
+            INPUTWORDS = spell.correctSentence(INPUTWORDS)
+            print(INPUTWORDS)
+
             DOCLIST = BoolSearchDel.BoolSearch(INPUTWORDS, INDEX)
             print("DocList: ")
             print(DOCLIST)
         #短语查询
         elif choice == 4:
+            print("stemming...")
+            INPUTWORDS = stemming.lemmatize_sentence(STATEMENT, True)
+            print(INPUTWORDS)
+            print("spelling correcting...")
+            INPUTWORDS = spell.correctSentence(INPUTWORDS)
+            print(INPUTWORDS)
+
+            WORDSET = set(INPUTWORDS)
+
             PHRASEDOCLIST = searchWord.searchPhrase(INDEX, WORDSET, INPUTWORDS)
             if 0 == len(PHRASEDOCLIST):
                 print("Doesn't find \"", INPUTWORDS, '"')
@@ -83,7 +107,14 @@ while LOOP:
                     print('    location: ', PHRASEDOCLIST[key])
         #模糊查询
         elif choice == 5:
-            pass
+            list = searchWord.wildcardSearch(STATEMENT, INDEX, WORDLIST)
+            for key in list:
+                # if len(list[key]) == 0:
+                #     print("    ","doesn't find",key,"in articles")
+                # else:
+                if len(list[key]) != 0:
+                    print(key, ":")
+                    print("    DocList: ",list[key])
 
     else:
         print("Invalid choice! Please observe these choices carefully!")
