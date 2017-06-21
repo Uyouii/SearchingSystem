@@ -1,8 +1,10 @@
 import json
 import os
 
-projectpath = 'D:/pythonProject/SearchingSystem/SearchSystem/'
-reuterspath = 'D:/pythonProject/SearchingSystem/Reuters'
+projectpath = os.getcwd()
+projectpath = projectpath.replace('/',"\\")
+projectpath += "\\"
+reuterspath = projectpath.replace("SearchSystem","Reuters")
 
 def writeToFile(item,filename):
     # 将数据写入到文件中

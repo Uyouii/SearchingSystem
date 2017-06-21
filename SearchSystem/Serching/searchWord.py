@@ -3,6 +3,7 @@ import os
 import tools
 import re
 from Serching import operateDocList
+from nltk.corpus import wordnet
 
 
 def searchOneWord(index, word):
@@ -183,10 +184,6 @@ def wildcardSearch(statement,index,wordList):
     return resultList
 
 
-
-
-
-
 def wildcard2regex(wildcard):
     regex = '^'
     for i in range(wildcard.__len__()):
@@ -230,8 +227,33 @@ def searchBasedOnWildcard(wildcard, wordList):
             # print(word)
     return result
         
+def getSynonyms(index,word):
+    stem = word.lower()
+    result = [[word]]
+    for synset in wordnet.synsets(stem):
+        for lemma in synset.lemmas():
+            if lemma.name() != stem:
+                wordlist = lemma.name().split('_')
+                result.append(wordlist)
+    return result
 
+def searchSynonymsWord(index,word):
+    wordlist = getSynonyms(index,word)
+    resultList = {}
 
+    for phraseList in wordlist:
+        #print(phraseList)
+        wordset =set(phraseList)
+        list = searchPhrase(index,wordset,phraseList)
+        phrase = ''
+        for w in phraseList:
+            phrase += w + " "
+        if len(list) > 0:
+            print(phrase, ":")
+            print("    ",list)
+            resultList[phrase] = list
+
+    return resultList
 
 
 

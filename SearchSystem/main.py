@@ -28,17 +28,17 @@ print("=================Searching System=================")
 
 while LOOP:
     print("searching operation: ")
-    print("[1] Overall [2]TOP K [3]BOOL [4]Phrase [5]wildcard [6]exit")
+    print("[1] Overall [2]TOP K [3]BOOL [4]Phrase [5]wildcard [6]synonyms [7]exit")
     print("your choice(int):")
     try:
         choice = int(input())
-        if choice == 6:
+        if choice == 7:
             break
     except :
         print()
         continue
 
-    if choice >= 1 and choice <= 5:
+    if choice >= 1 and choice <= 6:
         print("input the query statement:")
         STATEMENT = input()
         if STATEMENT == "EXIT":
@@ -108,13 +108,21 @@ while LOOP:
         #模糊查询
         elif choice == 5:
             list = searchWord.wildcardSearch(STATEMENT, INDEX, WORDLIST)
-            # for key in list:
-            #     # if len(list[key]) == 0:
-            #     #     print("    ","doesn't find",key,"in articles")
-            #     # else:
-            #     if len(list[key]) != 0:
-            #         print(key, ":")
-            #         print("    DocList: ",list[key])
+
+        elif choice == 6:
+            print("stemming...")
+            INPUTWORDS = stemming.lemmatize_sentence(STATEMENT, True)
+            print(INPUTWORDS)
+            print("spelling correcting...")
+            INPUTWORDS = spell.correctSentence(INPUTWORDS)
+            print(INPUTWORDS)
+
+
+
+            WORDSET = set(INPUTWORDS)
+
+            searchWord.searchSynonymsWord(INDEX,INPUTWORDS[0])
+            pass
 
     else:
         print("Invalid choice! Please observe these choices carefully!")

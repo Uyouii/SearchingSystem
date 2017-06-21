@@ -10,6 +10,6 @@
 python main.py
 ```
 
-运行前请修改tools.py下的变量projectpath和reuterspath，替换为本机下的相应路径
+> 注意：运行前请不要修改工程文件的名字和相对位置
 
 SearchSystem工程目录是pycharm的工程

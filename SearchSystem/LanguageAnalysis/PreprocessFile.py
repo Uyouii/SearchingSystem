@@ -1,4 +1,5 @@
 import os
+import tools
 from LanguageAnalysis import stemming
 
 def preProcess(filename):
@@ -8,7 +9,7 @@ def preProcess(filename):
     return words
 
 def processDirectory(directname):
-    path = 'D:/pythonProject/SearchingSystem/'
+    path = tools.projectpath
     path += directname
     files = os.listdir(path)
     result = []
