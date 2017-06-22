@@ -67,6 +67,9 @@ def getWordList(invertedIndex):
         wordList.append(word)
     return wordList
 
+# print("establishing the INDEX...")
+# establishIndex.createIndex('Reuters')
+
 
 
 # createIndex('test')

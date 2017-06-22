@@ -5,6 +5,8 @@ projectpath = os.getcwd()
 projectpath = projectpath.replace('/',"\\")
 projectpath += "\\"
 reuterspath = projectpath.replace("SearchSystem","Reuters")
+print("projectpath:",projectpath)
+print("Reuters path",reuterspath)
 
 def writeToFile(item,filename):
     # 将数据写入到文件中

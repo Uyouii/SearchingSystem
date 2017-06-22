@@ -1,11 +1,18 @@
 import os
 import tools
+import nltk
 from InvertedIndex import getIndex
 from LanguageAnalysis import stemming
 from Serching import searchWord
 from SpellingCorrect import spell
 from scoreQuery import sortDoc
 from BoolSearch import BoolSearchDel
+
+#下载需要的依赖文件
+# nltk.download("wordnet")
+# nltk.download("averaged_perceptron_tagger")
+# nltk.download("punkt")
+# nltk.download("maxnet_treebank_pos_tagger")
 
 DIRECTNAME = 'Reuters'
 
@@ -117,12 +124,10 @@ while LOOP:
             INPUTWORDS = spell.correctSentence(INPUTWORDS)
             print(INPUTWORDS)
 
-
-
             WORDSET = set(INPUTWORDS)
 
-            searchWord.searchSynonymsWord(INDEX,INPUTWORDS[0])
-            pass
+            resultlist = searchWord.searchSynonymsWord(INDEX,INPUTWORDS[0])
+
 
     else:
         print("Invalid choice! Please observe these choices carefully!")
