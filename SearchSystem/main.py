@@ -92,7 +92,7 @@ while LOOP:
             print(INPUTWORDS)
 
             DOCLIST = BoolSearchDel.BoolSearch(INPUTWORDS, INDEX)
-            print("DocList: ")
+            print(len(DOCLIST),"DOCs :")
             print(DOCLIST)
         #短语查询
         elif choice == 4:
